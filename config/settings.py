@@ -190,11 +190,11 @@ CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
 # Часовой пояс для работы Celery
 CELERY_TIMEZONE = "UTC"
 
-# CELERY_BEAT_SCHEDULE = {
-#     'user_deactivate': {
-#         'task': 'materials.tasks.user_deactivate',  # Путь к задаче
-#         'schedule': timedelta(days=1),  # Расписание выполнения задачи (например, каждые 10 минут)
-#     },
-# }
+CELERY_BEAT_SCHEDULE = {
+    'massage': {
+        'task': 'habit.tasks.massage',  # Путь к задаче
+        'schedule': timedelta(days=1),  # Расписание выполнения задачи (например, каждые 10 минут)
+    },
+}
 
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
