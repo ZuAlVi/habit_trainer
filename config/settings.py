@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'users',
+    'habit',
 ]
 
 MIDDLEWARE = [
@@ -90,8 +91,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'habit_trainer',
-        'USER': 'postgres',
+        'NAME': os.getenv('PG_DATABASE'),
+        'USER': os.getenv('PG_USER'),
         'PASSWORD': os.getenv('PG_PASS')
     }
 }
@@ -196,3 +197,4 @@ CELERY_TIMEZONE = "UTC"
 #     },
 # }
 
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
