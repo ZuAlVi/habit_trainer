@@ -20,12 +20,12 @@ def message():
                       "text": f"Эй ты{habit.user.last_name}, пришло время для {habit.activity},"
                       }
             requests.get(f'https://api.telegram.org/bot{settings.TELEGRAM_TOKEN}/sendMessage', params=params).json()
-            habit.data = datetime.now().astimezone(moskow_tz) + timedelta(days=1)
+            habit.usual_time = datetime.now().astimezone(moskow_tz) + timedelta(days=1)
             habit.save()
         elif habit.periodicity == 'week' and habit.usual_time <= today:
             params = {'chat_id': f'{habit.user.telegram_id}',
                       "text": f"Эй ты{habit.user.last_name}, пришло время для {habit.activity}"
                       }
             requests.get(f'https://api.telegram.org/bot{settings.TELEGRAM_TOKEN}/sendMessage', params=params).json()
-            habit.data = datetime.now().astimezone(moskow_tz) + timedelta(days=7)
+            habit.usual_time = datetime.now().astimezone(moskow_tz) + timedelta(days=7)
             habit.save()
