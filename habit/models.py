@@ -31,7 +31,7 @@ class Habit(models.Model):
     is_pleasant = models.BooleanField(default=False, verbose_name='Признак приятности')
     related_habit = models.ForeignKey(RelatedHabit, verbose_name='Связанная привычка', on_delete=models.CASCADE,
                                       **NULLABLE)
-    periodicity = models.CharField(max_length=9, default='daily', choices=period, verbose_name='Переодичность')
+    periodicity = models.CharField(max_length=6, default='daily', choices=period, verbose_name='Переодичность')
     fee = models.CharField(max_length=150, verbose_name='Вознагрождение', **NULLABLE)
     time_to_complete = models.PositiveIntegerField(default=1, verbose_name='Время выполнения')
     is_published = models.BooleanField(default=False, verbose_name='Публикация')
@@ -40,7 +40,7 @@ class Habit(models.Model):
         return self.activity
     
     def clean(self):
-        if self.peiodicity not in dict(period).keys():
+        if self.periodicity not in dict(self.period).keys():
             raise ValidationError(
                 {'periodicity': 'Пожалуйста, выберите один из доступных периодов: daily, weekly'}
             )
