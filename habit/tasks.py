@@ -15,14 +15,14 @@ def message():
     today = today.astimezone(moskow_tz)
     habit_list = Habit.objects.all()
     for habit in habit_list:
-        if habit.periodicity == 'every_day' and habit.usual_time <= today:
+        if habit.periodicity == 'daily' and habit.usual_time <= today:
             params = {'chat_id': f'{habit.user.telegram_id}',
                       "text": f"Эй ты{habit.user.last_name}, пришло время для {habit.activity},"
                       }
             requests.get(f'https://api.telegram.org/bot{settings.TELEGRAM_TOKEN}/sendMessage', params=params).json()
             habit.usual_time = datetime.now().astimezone(moskow_tz) + timedelta(days=1)
             habit.save()
-        elif habit.periodicity == 'week' and habit.usual_time <= today:
+        elif habit.periodicity == 'weekly' and habit.usual_time <= today:
             params = {'chat_id': f'{habit.user.telegram_id}',
                       "text": f"Эй ты{habit.user.last_name}, пришло время для {habit.activity}"
                       }
