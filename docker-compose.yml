@@ -6,14 +6,19 @@ services:
     image: redis
     ports:
       - '6379:6379'
+    healthcheck:
+      test: redis-cli ping
+      interval: 3s
+      timeout: 3s
+      retries: 10
 
   db:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: mysecretpassword
-      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
       PGDATA: /var/lib/postgresql/data/pgdata
-      POSTGRES_DB: habit_trainer
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - pg_data:/var/lib/postgresql/data/pgdata
     ports:
